@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BasketballStatWeb.Models.User>
+
+@{
+    ViewBag.Title = "ViewUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewUsers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.login_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.login_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role_ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "UpdateUser", new { login_ID = item.login_ID }) |
+          
+            @Html.ActionLink("Delete", "DeleteUser", new { login_ID = item.login_ID })
+        </td>
+    </tr>
+}
+
+</table>

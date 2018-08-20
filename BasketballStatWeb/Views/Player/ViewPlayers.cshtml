@@ -1,0 +1,36 @@
+﻿<!--Using statement allows for access to models from bbstatweb-->
+@using BasketballStatWeb.Models
+<!--putting model into the view so that i can access the model's data-->
+@model List<BasketballStatWeb.Models.Player>
+
+@{
+    ViewBag.Title = "ViewPlayers";
+}
+
+<h2>ViewPlayers</h2>
+<table class="table">
+    <tr>
+        <th>Player ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Height</th>
+        <th>Birth Date</th>
+        <th>Team</th>
+    </tr>
+    @foreach (Player _playerinfo in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(m => _playerinfo.PlayerID)</td>
+            <td>@Html.DisplayFor(m => _playerinfo.FirstName)</td>
+            <td>@Html.DisplayFor(m => _playerinfo.LastName)</td>
+            <td>@Html.DisplayFor(m => _playerinfo.Height)</td>
+            <td>@Html.DisplayFor(m => _playerinfo.birthdate)</td>
+            <td>@Html.DisplayFor(m => _playerinfo.TeamName)</td>
+            <td>@Html.ActionLink("Delete", "DeletePlayers", new { playerID = _playerinfo.PlayerID })</td>
+            <td>@Html.ActionLink("Edit", "UpdatePlayers", new { player_ID = _playerinfo.PlayerID })</td>
+        </tr>
+    }
+
+
+</table>
+

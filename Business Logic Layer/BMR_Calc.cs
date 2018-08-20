@@ -8,6 +8,7 @@ namespace Business_Logic_Layer
 {
     public class BMR_Calc
     {
+        //
         //Male: BMR = 66 + (6.23 x weight in pounds) + (12.7 x height in inches) - (6.8 x age in years)
         //Female: BMR = 655 + (4.35 x weight in pounds) + (4.7 x height in inches) - (4.7 x age in years)
         public decimal BMR_Result(string Gender, decimal Height, decimal Weight, int Age)

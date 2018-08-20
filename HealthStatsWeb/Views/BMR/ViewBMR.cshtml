@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
         @*<th>
             @Html.DisplayNameFor(model => model.User_ID)
         </th>*@
@@ -43,13 +46,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.Gender)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.User_ID)
         </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }

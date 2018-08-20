@@ -7,13 +7,15 @@ using DAL;
 using DAL.DAObjects;
 using HealthStatsWeb;
 using HealthStatsWeb.Models;
-
+using Business_Logic_Layer;
 namespace HealthStatsWeb.Controllers
 {
     public class WLCController : Controller
     {
         Mapper _Mapper = new Mapper();
         static WLCDataAccess _WLCDataAccess = new WLCDataAccess();
+        static BMRDataAccess _BMRDA  = new BMRDataAccess();
+        static WLC_Calc _Calc = new WLC_Calc();
         // GET: WLC
         public ActionResult Index()
         {
@@ -28,9 +30,10 @@ namespace HealthStatsWeb.Controllers
         [HttpPost]
         public ActionResult CreateWLC(WLC _viewModel)
         {
+           BMR _BMR = _Mapper.Map(_BMRDA.GetRecentBMRByUser_ID((int)Session["User_ID"]));
+            _viewModel.Result = _Calc.WLC_Result(_BMR.Gender, _BMR.Age, _BMR.Height, _BMR.Weight, _viewModel.Goal, _viewModel.GoalTime);
 
-
-            _WLCDataAccess.CreateWLC(_Mapper.Map(_viewModel));
+            _WLCDataAccess.CreateWLC(_Mapper.Map(_viewModel, _BMR));
             _viewModel.User_ID = (int)Session["User_ID"];
             return RedirectToAction("ViewWLC", "WLC");
         }

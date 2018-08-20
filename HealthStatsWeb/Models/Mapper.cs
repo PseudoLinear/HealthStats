@@ -264,6 +264,22 @@ namespace HealthStatsWeb.Models
             return _WLCListToReturn;
         }
 
+        public WLCDAO Map(WLC _CreateListToMap, BMR _BMRToMap)
+        {
+            WLCDAO _WLCToCreate = new WLCDAO()
+            {
+                Gender = _BMRToMap.Gender,
+                Age = _BMRToMap.Age,
+                Height = _BMRToMap.Height,
+                Weight = _BMRToMap.Weight,
+                Goal = _CreateListToMap.Goal,
+                GoalTime = _CreateListToMap.GoalTime,
+                User_ID = _BMRToMap.User_ID,
+                ID = _CreateListToMap.ID,
+                Result = _CreateListToMap.Result,
+            };
+            return _WLCToCreate;
+        }
         public WLCDAO Map(WLC _CreateListToMap)
         {
             WLCDAO _WLCToCreate = new WLCDAO()

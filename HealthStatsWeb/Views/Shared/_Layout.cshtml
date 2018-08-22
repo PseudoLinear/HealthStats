@@ -7,7 +7,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="">
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,10 +24,28 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Register", "CreateUser", "User")</li>
                     <li>@Html.ActionLink("Login", "Login", "User")</li>
-                    <li>@Html.ActionLink("View Users", "ViewUsers", "User")</li>
-                    <li>@Html.ActionLink("BMI calculator", "CreateBMI", "BMI")</li>
+
+                    @if (Session["Role_ID"] != null)
+                    {
+                        if ((int)Session["Role_ID"] == 2 || ((int)Session["Role_ID"] == 3))
+                        {
+                            <li>@Html.ActionLink("View Users", "ViewUsers", "User")</li>
+                        }
+                        else
+                        { }
+                    }
+                    else
+                    { }
+
+
+                    @if (Session["Role_ID"] != null)
+                    {
+                        <li>@Html.ActionLink("BMI calculator", "CreateBMI", "BMI")</li>
                     <li>@Html.ActionLink("BMR calculator", "CreateBMR", "BMR")</li>
                     <li>@Html.ActionLink("WLC calculator", "CreateWLC", "WLC")</li>
+                    }
+                    else
+                    { }
 
 
 

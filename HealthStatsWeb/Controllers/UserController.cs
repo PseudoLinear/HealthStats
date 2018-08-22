@@ -49,7 +49,7 @@ namespace HealthStatsWeb.Controllers
                 else
                 {
                     //return register user
-                    return RedirectToAction("CreateUser", "Register");
+                    return RedirectToAction("Login", "User");
                 }
 
 

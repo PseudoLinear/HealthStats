@@ -19,6 +19,7 @@ namespace Business_Logic_Layer
             decimal Result = new decimal();
 
             Result = (Goal * 3500) + (GoalTime * 2000) - (bmr.BMR_Result(Gender, Height, Weight, Age) * GoalTime);
+            Result = Result / GoalTime;
 
             return Result;
         }

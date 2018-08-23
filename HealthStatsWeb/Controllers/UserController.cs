@@ -61,11 +61,19 @@ namespace HealthStatsWeb.Controllers
             }
 
         }
+        
+
         [HttpGet]
         public ActionResult Login()
         {
 
             return View();
+        }
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "User");
         }
         [HttpGet]
         public ActionResult CreateUser()

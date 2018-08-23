@@ -73,8 +73,8 @@ namespace DAL
                                     Weight = _reader.GetDecimal(1),
                                     Age = _reader.GetInt32(2),
                                     Gender = _reader.GetString(3),                                    
-                                    User_ID = _reader.GetInt32(5),
-                                    ID = _reader.GetInt32(4),
+                                    User_ID = _reader.GetInt32(4),
+                                    ID = _reader.GetInt32(5),
                                     Result = _reader.GetDecimal(6),
                                 };
                                 _BMRList.Add(_BMRToList);

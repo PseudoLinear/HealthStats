@@ -51,9 +51,9 @@ namespace HealthStatsWeb.Controllers
         [HttpGet]
         public ActionResult UpdateBMR(int User_ID)
         {
-            BMR BMRToUpdate = _Mapper.Map(_BMRDataAccess.GetBMRByUser_ID(User_ID));
+            //BMR BMRToUpdate = _Mapper.Map(_BMRDataAccess.GetBMRByUser_ID(User_ID));
 
-            return View(BMRToUpdate);
+            return View(/*BMRToUpdate*/);
         }
         [HttpPost]
         public ActionResult UpdateBMR(BMR _BMRToUpdate)

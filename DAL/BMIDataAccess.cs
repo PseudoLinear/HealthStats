@@ -50,6 +50,7 @@ namespace DAL
         public List<BMIDAO> ViewBMI()
         {
             List<BMIDAO> _BMIList = new List<BMIDAO>();
+            
             try
             {  //esablishing the connection for the database
                 using (SqlConnection _connection = new SqlConnection(connectionstring))
@@ -58,6 +59,7 @@ namespace DAL
                     using (SqlCommand _command = new SqlCommand("sp_ViewBMI", _connection))
                     {
                         _command.CommandType = CommandType.StoredProcedure;
+                        
                         //connect to the database
                         _connection.Open();
                         //open the SQL data reader
@@ -160,9 +162,9 @@ namespace DAL
             return success;
 
         }
-        public BMIDAO GetBMIByUser_ID(int User_ID)
+        public List<BMIDAO> GetBMIByUser_ID(int User_ID)
         {
-            BMIDAO _BMIToGet = new BMIDAO();
+           List< BMIDAO> _BMIToGet = new List<BMIDAO>();
 
             try
             {  //esablishing the connection for the database
@@ -187,14 +189,27 @@ namespace DAL
 
 
                             //loop through the dataset or command and write each element to the _playerToList using the player object class
+                            //while (_reader.Read())
+                            //{
+                            //    List
+                            //    _BMIToGet.Height = _reader.GetDecimal(0);
+                            //    _BMIToGet.Weight = _reader.GetDecimal(1);
+                            //    _BMIToGet.User_ID = _reader.GetInt32(2);
+                            //    _BMIToGet.ID = _reader.GetInt32(3);
+
+
+                            //}
                             while (_reader.Read())
                             {
-
-                                _BMIToGet.Height = _reader.GetDecimal(0);
-                                _BMIToGet.Weight = _reader.GetDecimal(1);
-                                _BMIToGet.User_ID = _reader.GetInt32(2);
-                                _BMIToGet.ID = _reader.GetInt32(3);
-
+                                BMIDAO _BMIToList = new BMIDAO()
+                                {
+                                    Height = _reader.GetDecimal(0),
+                                    Weight = _reader.GetDecimal(1),
+                                    User_ID = _reader.GetInt32(2),
+                                    ID = _reader.GetInt32(3),
+                                    Result = _reader.GetDecimal(4),
+                                };
+                                _BMIToGet.Add(_BMIToList);
 
                             }
                         }

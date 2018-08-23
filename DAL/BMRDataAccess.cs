@@ -164,9 +164,9 @@ namespace DAL
             return success;
 
         }
-        public BMRDAO GetBMRByUser_ID(int User_ID)
+        public List<BMRDAO> GetBMRByUser_ID(int User_ID)
         {
-            BMRDAO _BMRToGet = new BMRDAO();
+            List<BMRDAO> _BMRToGet = new List<BMRDAO>();
 
             try
             {  //esablishing the connection for the database
@@ -191,17 +191,31 @@ namespace DAL
 
 
                             //loop through the dataset or command and write each element to the _playerToList using the player object class
+                            //while (_reader.Read())
+                            //{
+
+                            //    _BMRToGet.Height = _reader.GetDecimal(0);
+                            //    _BMRToGet.Weight = _reader.GetDecimal(1);
+                            //    _BMRToGet.Age = _reader.GetInt32(2);
+                            //    _BMRToGet.Gender = _reader.GetString(3);
+                            //    _BMRToGet.User_ID = _reader.GetInt32(4);
+                            //    _BMRToGet.ID = _reader.GetInt32(5);
+
+
+                            //}
                             while (_reader.Read())
                             {
-
-                                _BMRToGet.Height = _reader.GetDecimal(0);
-                                _BMRToGet.Weight = _reader.GetDecimal(1);
-                                _BMRToGet.Age = _reader.GetInt32(2);
-                                _BMRToGet.Gender = _reader.GetString(3);
-                                _BMRToGet.User_ID = _reader.GetInt32(4);
-                                _BMRToGet.ID = _reader.GetInt32(5);
-
-
+                                BMRDAO _BMRToList = new BMRDAO()
+                                {
+                                    Height = _reader.GetDecimal(0),
+                                    Weight = _reader.GetDecimal(1),
+                                    Age = _reader.GetInt32(2),
+                                    Gender = _reader.GetString(3),
+                                    User_ID = _reader.GetInt32(4),
+                                    ID = _reader.GetInt32(5),
+                                    Result = _reader.GetDecimal(6),
+                                };
+                                _BMRToGet.Add(_BMRToList);
                             }
                         }
 

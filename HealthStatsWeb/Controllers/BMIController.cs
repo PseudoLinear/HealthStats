@@ -46,19 +46,20 @@ namespace HealthStatsWeb.Controllers
         //create a view user method for our httpGet
         public ActionResult ViewBMI()
         {
+
             //instantiate and name 
             BMIViewModel _viewModel = new BMIViewModel();
             //use method from DAL that has stored procedure, map it to the model called playerlist
-            _viewModel.BMIList = _Mapper.Map(_BMIDataAccess.ViewBMI());
+            _viewModel.BMIList = _Mapper.Map(_BMIDataAccess.GetBMIByUser_ID((int)Session["User_ID"]));
             //load viewmodel into view and return the view
             return View(_viewModel.BMIList);
         }
         [HttpGet]
         public ActionResult UpdateBMI(int User_ID)
         {
-            BMI BMIToUpdate = _Mapper.Map(_BMIDataAccess.GetBMIByUser_ID(User_ID));
+            //BMI BMIToUpdate = _Mapper.Map(_BMIDataAccess.GetBMIByUser_ID(User_ID));
 
-            return View(BMIToUpdate);
+            return View();
         }
         [HttpPost]
         public ActionResult UpdateBMI(BMI _BMIToUpdate)

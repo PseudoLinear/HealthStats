@@ -7,7 +7,7 @@
 <h2>ViewUsers</h2>
 
 <p>
-    @Html.ActionLink("Create User", "CreateUser", "User")
+
 </p>
 <table class="table">
     <tr>
@@ -28,30 +28,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role_ID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "UpdateUser", new { User_ID = item.User_ID }) |
-           
-            @if ((int)Session["User_ID"] != item.User_ID)
-            {
-            @Html.ActionLink("Delete", "Delete", new { User_ID = item.User_ID })
-            }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role_ID)
+            </td>
+            <td>
+                @if (item.Role_ID != 3)
+                {
+                    @Html.ActionLink("Edit", "UpdateUser", new { User_ID = item.User_ID }) 
+                }
+                @if ((int)Session["Role_ID"] == 3)
+                {
+                if ((int)Session["User_ID"] != item.User_ID)
+                {
+                    @Html.ActionLink("| Delete", "Delete", new { User_ID = item.User_ID })
+                }
+                }
 
-        </td>
-    </tr>
-}
+
+            </td>
+        </tr>
+    }
 
 </table>

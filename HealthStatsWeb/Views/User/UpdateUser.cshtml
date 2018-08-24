@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h4></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -40,7 +40,9 @@
         </div>
 
         @if ((int)Session["Role_ID"] == 3)
-        { 
+        {
+            if (Model.Role_ID != 3)
+            {
         <div class="form-group">
             @Html.LabelFor(model => model.Role_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,7 +50,12 @@
                 @Html.ValidationMessageFor(model => model.Role_ID, "", new { @class = "text-danger" })
             </div>
         </div>
-         }
+            }
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Role_ID, new { htmlAttributes = new { @class = "form-control" } })
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -59,7 +66,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "ViewUser", "User")
+    @Html.ActionLink("Back to List", "ViewUsers", "User")
 </div>
 
 @section Scripts {

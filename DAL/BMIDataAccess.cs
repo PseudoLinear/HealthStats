@@ -103,10 +103,11 @@ namespace DAL
                         //this specifies what type of command is being used
                         _command.CommandType = CommandType.StoredProcedure;
                         //here is where values are going to be passed to the command
-                        _command.Parameters.AddWithValue("@Height", BMIToUpdate.User_ID);
+                        _command.Parameters.AddWithValue("@Height", BMIToUpdate.Height);
                         _command.Parameters.AddWithValue("@Weight", BMIToUpdate.Weight);
                         _command.Parameters.AddWithValue("@User_ID", BMIToUpdate.User_ID);
                         _command.Parameters.AddWithValue("@ID", BMIToUpdate.ID);
+                        _command.Parameters.AddWithValue("@Result", BMIToUpdate.Result);
 
                         //here is where the connection is open
                         _connection.Open();
@@ -210,6 +211,54 @@ namespace DAL
                                     Result = _reader.GetDecimal(4),
                                 };
                                 _BMIToGet.Add(_BMIToList);
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                Error_Logger log = new Error_Logger();
+                log.LogError(error);
+            }
+            return _BMIToGet;
+        }
+        public BMIDAO GetBMIByID(int ID)
+        {
+            BMIDAO _BMIToGet = new BMIDAO();
+
+            try
+            {  //esablishing the connection for the database
+                using (SqlConnection _connection = new SqlConnection(connectionstring))
+
+                {   //establishing the command to pass to the database and defining the command
+                    using (SqlCommand _command = new SqlCommand("sp_GetBMIByID", _connection))
+                    {
+                        //this specifies what type of command is being used
+                        _command.CommandType = CommandType.StoredProcedure;
+                        //here is where values are going to be passed to the command
+                        _command.Parameters.AddWithValue("@ID", ID);
+                        //here is where the connection is open
+                        _connection.Open();
+                        //this executes the command
+                        _command.ExecuteNonQuery();
+
+
+
+                        using (SqlDataReader _reader = _command.ExecuteReader())
+                        {
+
+
+                            //loop through the dataset or command and write each element to the _playerToList using the player object class
+                            while (_reader.Read())
+                            {
+
+                                _BMIToGet.Height = _reader.GetDecimal(0);
+                                _BMIToGet.Weight = _reader.GetDecimal(1);
+                               
+
 
                             }
                         }

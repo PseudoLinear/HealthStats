@@ -7,7 +7,7 @@
 <h2>ViewWLC</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+  
 </p>
 <table class="table">
     <tr>
@@ -66,8 +66,8 @@
         </td>
       
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Update", "UpdateWLC", new { id = item.ID }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>

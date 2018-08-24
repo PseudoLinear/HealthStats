@@ -55,17 +55,18 @@ namespace HealthStatsWeb.Controllers
             return View(_viewModel.BMIList);
         }
         [HttpGet]
-        public ActionResult UpdateBMI(int User_ID)
+        public ActionResult UpdateBMI(int ID)
         {
-            //BMI BMIToUpdate = _Mapper.Map(_BMIDataAccess.GetBMIByUser_ID(User_ID));
-
-            return View();
+           
+            BMI BMIToUpdate = _Mapper.Map(_BMIDataAccess.GetBMIByID(ID));
+            return View(BMIToUpdate);
         }
         [HttpPost]
-        public ActionResult UpdateBMI(BMI _BMIToUpdate)
+        public ActionResult UpdateBMI(BMI BMIToUpdate)
         {
-
-            _BMIDataAccess.UpdateBMI(_Mapper.Map(_BMIToUpdate));
+            BMIToUpdate.Result = _Calc.BMI_Result(BMIToUpdate.Height, BMIToUpdate.Weight);
+            BMIToUpdate.User_ID = (int)Session["User_ID"];
+            _BMIDataAccess.UpdateBMI(_Mapper.Map(BMIToUpdate));
 
             return RedirectToAction("ViewBMI", "BMI");
         }

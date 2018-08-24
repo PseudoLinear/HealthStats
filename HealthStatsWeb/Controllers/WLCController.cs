@@ -49,17 +49,18 @@ namespace HealthStatsWeb.Controllers
             return View(_viewModel.WLCList);
         }
         [HttpGet]
-        public ActionResult UpdateWLC(int User_ID)
+        public ActionResult UpdateWLC(int ID)
         {
-            WLC WLCToUpdate = _Mapper.Map(_WLCDataAccess.GetWLCByUser_ID(User_ID));
+            WLC WLCToUpdate = _Mapper.Map(_WLCDataAccess.GetWLCByID(ID));
 
             return View(WLCToUpdate);
         }
         [HttpPost]
-        public ActionResult UpdateWLC(WLC _WLCToUpdate)
+        public ActionResult UpdateWLC(WLC WLCToUpdate)
         {
-
-            _WLCDataAccess.UpdateWLC(_Mapper.Map(_WLCToUpdate));
+            BMR _BMR = _Mapper.Map(_BMRDA.GetRecentBMRByUser_ID((int)Session["User_ID"]));
+            WLCToUpdate.Result = _Calc.WLC_Result(_BMR.Gender, _BMR.Age, _BMR.Height, _BMR.Weight, WLCToUpdate.Goal, WLCToUpdate.GoalTime);
+            _WLCDataAccess.UpdateWLC(_Mapper.Map(WLCToUpdate));
 
             return RedirectToAction("ViewWLC", "WLC");
         }

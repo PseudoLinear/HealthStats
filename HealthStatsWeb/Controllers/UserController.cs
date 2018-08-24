@@ -144,7 +144,7 @@ namespace HealthStatsWeb.Controllers
         {
             if (Session["Role_ID"] != null)
             {
-                if ((int)Session["Role_ID"] == 3)
+                if ((int)Session["Role_ID"] == 2 || (int)Session["Role_ID"] ==  3)
                 {
                     User UserToUpdate = _Mapper.Map(_UserDataAccess.GetUserByUser_ID(User_ID));
                     return View(UserToUpdate);
@@ -164,13 +164,13 @@ namespace HealthStatsWeb.Controllers
            
         }
         [HttpPost]
-        public ActionResult UpdateUser(User _UserToUpdate)
+        public ActionResult UpdateUser(User UserToUpdate)
         {
             if (Session["Role_ID"] != null)
             {
-                if ((int)Session["Role_ID"] == 3)
+                if ((int)Session["Role_ID"] == 2 || (int)Session["Role_ID"] == 3)
                 {
-                    _UserDataAccess.UpdateUser(_Mapper.Map(_UserToUpdate));
+                    _UserDataAccess.UpdateUser(_Mapper.Map(UserToUpdate));
 
                     return RedirectToAction("ViewUsers", "user");
                 }

@@ -49,18 +49,20 @@ namespace HealthStatsWeb.Controllers
             return View(_viewModel.BMRList);
         }
         [HttpGet]
-        public ActionResult UpdateBMR(int User_ID)
+        public ActionResult UpdateBMR(int ID)
         {
-            //BMR BMRToUpdate = _Mapper.Map(_BMRDataAccess.GetBMRByUser_ID(User_ID));
+            BMR BMRToUpdate = _Mapper.Map(_BMRDataAccess.GetBMRByID(ID));
 
-            return View(/*BMRToUpdate*/);
+            return View(BMRToUpdate);
         }
         [HttpPost]
-        public ActionResult UpdateBMR(BMR _BMRToUpdate)
+        public ActionResult UpdateBMR(BMR BMRToUpdate)
         {
 
-            _BMRDataAccess.UpdateBMR(_Mapper.Map(_BMRToUpdate));
-
+           BMRToUpdate.Result = _Calc.BMR_Result(BMRToUpdate.Gender, BMRToUpdate.Height, BMRToUpdate.Weight, BMRToUpdate.Age);
+            BMRToUpdate.User_ID = (int)Session["User_ID"];
+            _BMRDataAccess.UpdateBMR(_Mapper.Map(BMRToUpdate));
+          
             return RedirectToAction("ViewBMR", "BMR");
         }
         [HttpGet]

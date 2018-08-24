@@ -113,6 +113,7 @@ namespace DAL
                         _command.Parameters.AddWithValue("@Weight", WLCToUpdate.Weight);
                         _command.Parameters.AddWithValue("@Goal", WLCToUpdate.Goal);
                         _command.Parameters.AddWithValue("GoalTime", WLCToUpdate.GoalTime);
+                        _command.Parameters.AddWithValue("@Result", WLCToUpdate.Result);
 
                         //here is where the connection is open
                         _connection.Open();
@@ -207,6 +208,58 @@ namespace DAL
                                 _WLCToGet.User_ID = _reader.GetInt32(6);
                                 _WLCToGet.ID = _reader.GetInt32(7);
 
+
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                Error_Logger log = new Error_Logger();
+                log.LogError(error);
+            }
+            return _WLCToGet;
+        }
+        public WLCDAO GetWLCByID(int ID)
+        {
+            WLCDAO _WLCToGet = new WLCDAO();
+
+            try
+            {  //esablishing the connection for the database
+                using (SqlConnection _connection = new SqlConnection(connectionstring))
+
+                {   //establishing the command to pass to the database and defining the command
+                    using (SqlCommand _command = new SqlCommand("sp_GetWLCByID", _connection))
+                    {
+                        //this specifies what type of command is being used
+                        _command.CommandType = CommandType.StoredProcedure;
+                        //here is where values are going to be passed to the command
+                        _command.Parameters.AddWithValue("@ID", ID);
+                        //here is where the connection is open
+                        _connection.Open();
+                        //this executes the command
+                        _command.ExecuteNonQuery();
+
+
+
+                        using (SqlDataReader _reader = _command.ExecuteReader())
+                        {
+
+
+                            //loop through the dataset or command and write each element to the _playerToList using the player object class
+                            while (_reader.Read())
+                            {
+
+                                _WLCToGet.Gender = _reader.GetString(0);
+                                _WLCToGet.Age = _reader.GetInt32(1);
+                                _WLCToGet.Height = _reader.GetDecimal(2);
+                                _WLCToGet.Weight = _reader.GetDecimal(3);
+                                _WLCToGet.Height = _reader.GetDecimal(4);
+                                _WLCToGet.Goal = _reader.GetDecimal(5);
+                                _WLCToGet.GoalTime = _reader.GetDecimal(6);
 
 
                             }

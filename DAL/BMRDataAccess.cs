@@ -109,7 +109,7 @@ namespace DAL
                         _command.Parameters.AddWithValue("@Gender", BMRToUpdate.Gender);
                         _command.Parameters.AddWithValue("@User_ID", BMRToUpdate.User_ID);
                         _command.Parameters.AddWithValue("@ID", BMRToUpdate.ID);
-
+                        _command.Parameters.AddWithValue("@Result", BMRToUpdate.Result);
                         //here is where the connection is open
                         _connection.Open();
                         //this executes the command
@@ -266,6 +266,57 @@ namespace DAL
                                 _BMRToGet.User_ID = _reader.GetInt32(4);
                                 _BMRToGet.ID = _reader.GetInt32(5);
                                 _BMRToGet.Result = _reader.GetDecimal(6);
+
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                Error_Logger log = new Error_Logger();
+                log.LogError(error);
+            }
+            return _BMRToGet;
+        }
+        public BMRDAO GetBMRByID(int ID)
+        {
+            BMRDAO _BMRToGet = new BMRDAO();
+
+            try
+            {  //esablishing the connection for the database
+                using (SqlConnection _connection = new SqlConnection(connectionstring))
+
+                {   //establishing the command to pass to the database and defining the command
+                    using (SqlCommand _command = new SqlCommand("sp_GetBMRByID", _connection))
+                    {
+                        //this specifies what type of command is being used
+                        _command.CommandType = CommandType.StoredProcedure;
+                        //here is where values are going to be passed to the command
+                        _command.Parameters.AddWithValue("@ID", ID);
+                        //here is where the connection is open
+                        _connection.Open();
+                        //this executes the command
+                        _command.ExecuteNonQuery();
+
+
+
+                        using (SqlDataReader _reader = _command.ExecuteReader())
+                        {
+
+
+                            //loop through the dataset or command and write each element to the _playerToList using the player object class
+                            while (_reader.Read())
+                            {
+
+                                _BMRToGet.Height = _reader.GetDecimal(0);
+                                _BMRToGet.Weight = _reader.GetDecimal(1);
+                                _BMRToGet.Age = _reader.GetInt32(2);
+                                _BMRToGet.Gender = _reader.GetString(3);
+                               
+
 
 
                             }
